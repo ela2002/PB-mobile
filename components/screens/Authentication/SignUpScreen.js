@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { auth, firestore } from "../../firebase/firebase";
+import { auth, firestore } from "../../../firebase/firebase";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 

@@ -8,7 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { sendPasswordResetEmail } from "@firebase/auth";
-import { auth } from "../../firebase/firebase";
+import { auth } from "../../../firebase/firebase";
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");

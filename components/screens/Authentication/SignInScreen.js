@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { signInWithEmailAndPassword } from "@firebase/auth";
-import { auth } from "../../firebase/firebase";
+import { auth } from "../../../firebase/firebase";
 import ForgotPasswordScreen from "./ForgotPasswordScreen";
 
 const SignInScreen = ({ navigation }) => {
@@ -21,7 +21,7 @@ const SignInScreen = ({ navigation }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("User signed in successfully!");
-      navigation.navigate("Home");
+      navigation.navigate("Main");
     } catch (error) {
       Alert.alert("Sign-in Error", error.message);
       console.error("Sign-in error:", error.message);
@@ -29,7 +29,7 @@ const SignInScreen = ({ navigation }) => {
   };
 
   const handleForgotPassword = () => {
-    setShowForgotPassword(true); // Show the ForgotPasswordScreen component
+    setShowForgotPassword(true);
   };
 
   const handleSignUp = () => {

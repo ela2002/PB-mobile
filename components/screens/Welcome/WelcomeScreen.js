@@ -13,10 +13,12 @@ const WelcomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Image
-          source={require("../../assets/logo_1.png")}
-          style={styles.image}
-        />
+        <Text style={styles.title}>
+          Shaping Better Workplaces, {"\n"}One Review at a Time
+        </Text>
+        <Text style={styles.caption}>
+          Ready to take control of your career journey?
+        </Text>
         <TouchableOpacity style={styles.button} onPress={handleSignIn}>
           <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
@@ -28,7 +30,7 @@ const WelcomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(182, 159, 235, 0.5)",
+    backgroundColor: "#f0f0f0",
   },
   contentContainer: {
     flex: 1,
@@ -41,21 +43,24 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 27,
     fontWeight: "bold",
-    marginBottom: 10,
-    color: "#FFFFFF",
-  },
-  slogan: {
-    fontSize: 16,
     marginBottom: 20,
-    color: "#FFFFFF",
+    color: "#8172E8", // Title text color
+    textAlign: "center",
+  },
+  caption: {
+    fontSize: 16,
+    marginBottom: 30,
+    color: "#333",
+    textAlign: "center",
+    lineHeight: 24,
   },
   button: {
     backgroundColor: "#8172E8",
     paddingVertical: 15,
     paddingHorizontal: 40,
-    borderRadius: 10,
+    borderRadius: 30,
     marginBottom: 10,
     marginTop: 5,
   },

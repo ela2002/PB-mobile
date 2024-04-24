@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
-import { auth } from "../../firebase/firebase";
+import { auth } from "../../../firebase/firebase";
 import { signOut } from "@firebase/auth";
 
 const HomeScreen = ({ navigation }) => {
