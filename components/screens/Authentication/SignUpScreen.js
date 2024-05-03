@@ -40,6 +40,7 @@ const SignUpScreen = ({ navigation }) => {
       const userId = userCredential.user.uid;
 
       await setDoc(doc(firestore, "employeesprofile", userId), {
+        uid: auth.currentUser.uid,
         email,
         fullName,
         Unrecommend: "",
