@@ -1,43 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, StyleSheet, Text } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  RefreshControl,
+  ActivityIndicator,
+} from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { auth, firestore } from "../../firebase/firebase";
-import PostCard from "../Insightzone/PostCard";
+import { firestore } from "../../../firebase/firebase";
+import PostCard from "../../Insightzone/PostCard";
 
-const Userpost = () => {
-  const [userId, setUserId] = useState(null);
+const Employeeposts = ({ employee }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserId(user.uid);
-        fetchPosts(user.uid);
-      } else {
-        setUserId(null);
-        setPosts([]);
-        setLoading(false);
-      }
-    });
+    fetchPosts();
+  }, [employee]);
 
-    return () => unsubscribe();
-  }, []);
-
-  const fetchPosts = async (userId) => {
+  const fetchPosts = async () => {
     try {
+      setLoading(true);
       const q = query(
         collection(firestore, "posts"),
-        where("uid", "==", userId)
+        where("uid", "==", employee.uid)
       );
       const querySnapshot = await getDocs(q);
-      const fetchedPosts = querySnapshot.docs.map((doc) => {
-        const post = doc.data();
-        const timestamp = post.timestamp.toDate();
+      const postsData = querySnapshot.docs.map((doc) => {
+        const postData = doc.data();
+        const timestamp = postData.timestamp.toDate();
         const timeAgo = getTimeAgo(timestamp);
-        return { id: doc.id, ...post, timeAgo };
+
+        return { id: doc.id, ...postData, timeAgo };
       });
-      setPosts(fetchedPosts);
+      setPosts(postsData);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -76,18 +78,16 @@ const Userpost = () => {
     return `${Math.floor(seconds)}s ago`;
   };
 
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchPosts();
+    setRefreshing(false);
+  };
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
-  if (!userId) {
-    return (
-      <View style={styles.noUserContainer}>
-        <Text>No user signed in.</Text>
+        <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
   }
@@ -101,21 +101,23 @@ const Userpost = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  loadingContainer: {
+  container: {
     flex: 1,
+    marginBottom: 80,
     justifyContent: "center",
     alignItems: "center",
+    marginRight: 10,
   },
-  noUserContainer: {
+  loadingContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -125,9 +127,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  container: {
-    marginBottom: 80,
-  },
 });
 
-export default Userpost;
+export default Employeeposts;

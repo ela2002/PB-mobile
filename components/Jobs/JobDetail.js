@@ -99,6 +99,7 @@ const JobDetail = ({ route }) => {
         jobId: jobId,
         jobTitle: job.title,
         userId: user.uid,
+        status: "in progress",
         companyName: company.companyName,
         companyPic: company.profilePic,
         appliedAt: new Date(),

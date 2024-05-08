@@ -13,7 +13,7 @@ const Navbar = () => {
   const navigation = useNavigation();
 
   const handleChatPress = () => {
-    navigation.navigate("Chat");
+    navigation.navigate("ChatListScreen");
   };
 
   const handleSearchPress = () => {

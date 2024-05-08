@@ -35,6 +35,7 @@ const JobCard = ({ job, company }) => {
       </View>
       <Text style={styles.title}>{job.title}</Text>
       <Text style={styles.location}>{job.location}</Text>
+      <Text style={styles.location}>{job.Salary}</Text>
       <View style={styles.tagsContainer}>
         {job.requirements.map((tag, index) => (
           <Text key={index} style={styles.tag}>

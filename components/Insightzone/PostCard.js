@@ -20,6 +20,7 @@ import {
   getDoc,
   setDoc,
   onSnapshot,
+  addDoc,
 } from "firebase/firestore";
 import { auth, firestore } from "../../firebase/firebase";
 import * as ImagePicker from "expo-image-picker";
@@ -110,10 +111,29 @@ const PostCard = ({ post }) => {
   };
 
   const handleBookmarkPress = async () => {
-    setBookmarkPressed(!bookmarkPressed);
     try {
-      const postRef = doc(firestore, "posts", id);
-      await updateDoc(postRef, { bookmarked: !bookmarkPressed });
+      const userUid = auth.currentUser.uid;
+      const bookmarkRef = collection(firestore, "posts", id, "saves");
+
+      if (!bookmarkPressed) {
+        // Add the user's UID to the bookmarks subcollection
+        await addDoc(bookmarkRef, { id: userUid });
+      } else {
+        // Query the bookmarks subcollection to find the bookmark document
+        const querySnapshot = await getDocs(bookmarkRef);
+        const bookmarkDoc = querySnapshot.docs.find(
+          (doc) => doc.data().id === userUid
+        );
+
+        if (bookmarkDoc) {
+          // If the bookmark document exists, delete it
+          await deleteDoc(doc(bookmarkRef, bookmarkDoc.id));
+        } else {
+          console.warn("Bookmark document does not exist.");
+        }
+      }
+
+      setBookmarkPressed(!bookmarkPressed);
     } catch (error) {
       console.error("Error updating bookmark status:", error);
     }

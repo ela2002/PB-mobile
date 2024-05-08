@@ -64,6 +64,7 @@ const ApplicationsScreen = () => {
               <View style={styles.headerText}>
                 <Text style={styles.jobTitle}>{item.jobTitle}</Text>
                 <Text style={styles.companyName}>{item.companyName}</Text>
+                <Text style={styles.companyName}>{item.status}</Text>
               </View>
             </View>
             <Text style={styles.appliedAt}>

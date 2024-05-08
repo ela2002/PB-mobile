@@ -7,7 +7,8 @@ import WelcomeScreen from "../components/screens/Welcome/WelcomeScreen";
 import SignUpScreen from "../components/screens/Authentication/SignUpScreen";
 import SignInScreen from "../components/screens/Authentication/SignInScreen";
 import InsightzoneScreen from "../components/screens/Insightzone/InsightzoneScreen";
-import ChatScreen from "../components/screens/Chat/ChatScreen";
+import ChatListScreen from "../components/screens/Chat/ChatListScreen";
+import ChatDetailScreen from "../components/screens/Chat/ChatDetailScreen";
 import CommunityScreen from "../components/screens/Community/CommunityScreen";
 import EmployeeProfileScreen from "../components/screens/EmployeeProfile/EmployeeProfileScreen";
 import AddPostScreen from "../components/screens/AddPost/AddPostScreen";
@@ -17,6 +18,16 @@ import Tabs from "../components/tabs/Tabs";
 import SearchScreen from "../components/screens/Search/SearchScreen";
 import CompanyDetail from "../components/CompanyProfile/CompanyDetail";
 import JobDetail from "../components/Jobs/JobDetail";
+import ParticipantDetail from "../components/screens/participant/participantdetails";
+import AcademicBackground from "../components/EmployeeProfile/academicBackground";
+import Certifications from "../components/EmployeeProfile/certifications";
+import Resume from "../components/EmployeeProfile/resume";
+import Languages from "../components/EmployeeProfile/languages";
+import Interests from "../components/EmployeeProfile/Interests";
+import Workexperience from "../components/EmployeeProfile/workexperience";
+import Projects from "../components/EmployeeProfile/projects";
+import Informations from "../components/EmployeeProfile/inormations";
+
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "../firebase/firebase";
 
@@ -55,6 +66,15 @@ const MainNavigator = () => {
         component={EmployeeProfileScreen}
         options={{ headerShown: false }}
       />
+      <Tab.Screen name="participantdetail" component={ParticipantDetail} />
+      <Tab.Screen name="Informations" component={Informations} />
+      <Tab.Screen name="Projects" component={Projects} />
+      <Tab.Screen name="Resume" component={Resume} />
+      <Tab.Screen name="Workexperience" component={Workexperience} />
+      <Tab.Screen name="Interests" component={Interests} />
+      <Tab.Screen name="AcademicBackground" component={AcademicBackground} />
+      <Tab.Screen name="Languages" component={Languages} />
+      <Tab.Screen name="Certifications" component={Certifications} />
     </Tab.Navigator>
   );
 };
@@ -108,7 +128,8 @@ const AppNavigator = () => {
             gestureEnabled: false,
           })}
         />
-        <Stack.Screen name="Chat" component={ChatScreen} />
+        <Stack.Screen name="ChatListScreen" component={ChatListScreen} />
+        <Stack.Screen name="ChatDetailScreen" component={ChatDetailScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="CompanyDetail" component={CompanyDetail} />
         <Stack.Screen name="JobDetail" component={JobDetail} />

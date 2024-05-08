@@ -11,7 +11,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { auth, firestore } from "../../firebase/firebase";
+import { auth, firestore } from "../../../firebase/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -84,7 +84,7 @@ const Details = () => {
   const navigation = useNavigation(); // Initialize navigation
 
   const handleNavigateToInformation = () => {
-    navigation.navigate("Informations");
+    navigation.navigate("Informations"); // Navigate to the Information component
   };
 
   const handleLogout = () => {
