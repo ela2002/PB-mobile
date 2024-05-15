@@ -40,6 +40,15 @@ const Employeedetails = ({ employeeId }) => {
         );
         setAcademicBackground(academicBackgroundData);
 
+        // Fetch Projects
+        const projectsRef = collection(
+          firestore,
+          `employeesprofile/${employeeId}/projects`
+        );
+        const projectsSnapshot = await getDocs(projectsRef);
+        const projectsData = projectsSnapshot.docs.map((doc) => doc.data());
+        setProjects(projectsData);
+
         // Fetch Certifications
         const certificationsRef = collection(
           firestore,
@@ -51,15 +60,6 @@ const Employeedetails = ({ employeeId }) => {
         );
         setCertifications(certificationsData);
 
-        // Fetch Interests
-        const interestsRef = collection(
-          firestore,
-          `employeesprofile/${employeeId}/interests`
-        );
-        const interestsSnapshot = await getDocs(interestsRef);
-        const interestsData = interestsSnapshot.docs.map((doc) => doc.data());
-        setInterests(interestsData);
-
         // Fetch Languages
         const languagesRef = collection(
           firestore,
@@ -69,14 +69,14 @@ const Employeedetails = ({ employeeId }) => {
         const languagesData = languagesSnapshot.docs.map((doc) => doc.data());
         setLanguages(languagesData);
 
-        // Fetch Projects
-        const projectsRef = collection(
+        // Fetch Interests
+        const interestsRef = collection(
           firestore,
-          `employeesprofile/${employeeId}/projects`
+          `employeesprofile/${employeeId}/interests`
         );
-        const projectsSnapshot = await getDocs(projectsRef);
-        const projectsData = projectsSnapshot.docs.map((doc) => doc.data());
-        setProjects(projectsData);
+        const interestsSnapshot = await getDocs(interestsRef);
+        const interestsData = interestsSnapshot.docs.map((doc) => doc.data());
+        setInterests(interestsData);
       } catch (error) {
         console.error("Error fetching employee data:", error);
       }
@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    marginBottom: 30,
   },
   box: {
     backgroundColor: "#fff",

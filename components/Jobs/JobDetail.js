@@ -101,6 +101,7 @@ const JobDetail = ({ route }) => {
         userId: user.uid,
         status: "in progress",
         companyName: company.companyName,
+        companyId: company.uid,
         companyPic: company.profilePic,
         appliedAt: new Date(),
       };

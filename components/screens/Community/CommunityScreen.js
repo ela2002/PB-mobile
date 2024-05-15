@@ -9,7 +9,7 @@ import {
   Dimensions,
   FlatList,
   ActivityIndicator,
-  Alert,
+  RefreshControl,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import {
@@ -24,17 +24,19 @@ import {
 import { auth, firestore } from "../../../firebase/firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const CommunityScreen = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [chatrooms, setChatrooms] = useState([]);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [formValues, setFormValues] = useState({
     name: "",
     bio: "",
     image: null,
   });
-  const [loading, setLoading] = useState(false);
   const [participants, setParticipants] = useState([]);
   const [uniqueParticipantIds, setUniqueParticipantIds] = useState([]);
   const navigation = useNavigation();
@@ -45,35 +47,39 @@ const CommunityScreen = () => {
   };
 
   useEffect(() => {
-    const fetchChatrooms = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(firestore, "chatrooms"));
-        const chatroomsData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          name: doc.data().name,
-          bio: doc.data().bio,
-          image: doc.data().image,
-          participants: doc.data().participants,
-          joined: false,
-        }));
-        setChatrooms(chatroomsData);
-      } catch (error) {
-        console.error("Error fetching chatrooms:", error);
-      }
-    };
-
     fetchChatrooms();
-
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
     });
-
-    return () => unsubscribe();
+    return unsubscribe;
   }, []);
 
   useEffect(() => {
-    const fetchParticipants = async () => {
-      try {
+    fetchParticipants();
+  }, [currentUser]);
+
+  const fetchChatrooms = async () => {
+    setLoading(true);
+    try {
+      const querySnapshot = await getDocs(collection(firestore, "chatrooms"));
+      const chatroomsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        name: doc.data().name,
+        bio: doc.data().bio,
+        image: doc.data().image,
+        participants: doc.data().participants,
+        joined: false,
+      }));
+      setChatrooms(chatroomsData);
+    } catch (error) {
+      console.error("Error fetching chatrooms:", error);
+    }
+    setLoading(false);
+  };
+
+  const fetchParticipants = async () => {
+    try {
+      if (currentUser) {
         const querySnapshot = await getDocs(
           collection(firestore, "employeesprofile")
         );
@@ -98,13 +104,17 @@ const CommunityScreen = () => {
         setUniqueParticipantIds(uniqueIds);
 
         setParticipants(filteredParticipants);
-      } catch (error) {
-        console.error("Error fetching participants:", error);
       }
-    };
-
-    fetchParticipants();
-  }, [currentUser]);
+    } catch (error) {
+      console.error("Error fetching participants:", error);
+    }
+  };
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchChatrooms();
+    await fetchParticipants();
+    setRefreshing(false);
+  };
 
   const handleChooseImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -271,48 +281,59 @@ const CommunityScreen = () => {
         <Text style={styles.addText}>Create Chatroom</Text>
       </TouchableOpacity>
       {showCreateForm && (
-        <View style={styles.createForm}>
-          <TextInput
-            style={styles.input}
-            placeholder="Chatroom Name"
-            value={formValues.name}
-            onChangeText={(text) =>
-              setFormValues({ ...formValues, name: text })
-            }
-          />
-          <TextInput
-            style={[styles.input, styles.textArea]}
-            placeholder="Description"
-            multiline={true}
-            numberOfLines={4}
-            value={formValues.bio}
-            onChangeText={(text) => setFormValues({ ...formValues, bio: text })}
-          />
-          <TouchableOpacity
-            style={styles.imageInputButton}
-            onPress={handleChooseImage}
-          >
-            <Text style={styles.imageInputButtonText}>Choose Image</Text>
-          </TouchableOpacity>
-          {formValues.image && (
-            <Image
-              source={{ uri: formValues.image.uri }}
-              style={styles.selectedImage}
+        <View style={styles.overlay}>
+          <View style={styles.createForm}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setShowCreateForm(false)}
+            >
+              <MaterialIcons name="close" size={24} color="#666" />
+            </TouchableOpacity>
+            <TextInput
+              style={styles.input}
+              placeholder="Chatroom Name"
+              value={formValues.name}
+              onChangeText={(text) =>
+                setFormValues({ ...formValues, name: text })
+              }
             />
-          )}
-          <TouchableOpacity
-            style={styles.createButton}
-            onPress={handleCreateChatroom}
-            disabled={loading}
-          >
-            {loading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <Text style={styles.createText}>Create</Text>
+            <TextInput
+              style={[styles.input, styles.textArea]}
+              placeholder="Description"
+              multiline={true}
+              numberOfLines={4}
+              value={formValues.bio}
+              onChangeText={(text) =>
+                setFormValues({ ...formValues, bio: text })
+              }
+            />
+            <TouchableOpacity
+              style={styles.imageInputButton}
+              onPress={handleChooseImage}
+            >
+              <Text style={styles.imageInputButtonText}>Choose Image</Text>
+            </TouchableOpacity>
+            {formValues.image && (
+              <Image
+                source={{ uri: formValues.image.uri }}
+                style={styles.selectedImage}
+              />
             )}
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.createButton}
+              onPress={handleCreateChatroom}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator size="large" color="#0000ff" />
+              ) : (
+                <Text style={styles.createText}>Create</Text>
+              )}
+            </TouchableOpacity>
+          </View>
         </View>
       )}
+      {loading && <ActivityIndicator size="large" color="#0000ff" />}
       <FlatList
         data={chatrooms}
         renderItem={renderChatroomCard}
@@ -321,6 +342,9 @@ const CommunityScreen = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}
         style={styles.first}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
       <Text style={styles.discoverTitle}>DISCOVER POTENTIAL CONNECTIONS</Text>
       <FlatList
@@ -415,6 +439,27 @@ const styles = StyleSheet.create({
   addText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.5)", // semi-transparent black overlay
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 999, // Ensure the overlay is above other content
+  },
+  closeButton: {
+    position: "absolute",
+    top: 0,
+    right: 5,
+    zIndex: 1000, // Ensure the close button is above other content
+  },
+  closeButtonText: {
+    color: "#666",
+    fontSize: 16,
   },
   createForm: {
     backgroundColor: "#fff",

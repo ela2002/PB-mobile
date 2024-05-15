@@ -166,12 +166,20 @@ const ProfileHeader = () => {
                   placeholder="Job Title"
                 />
 
-                <TouchableOpacity
-                  onPress={handleSaveChanges}
-                  style={styles.saveButton}
-                >
-                  <Text style={styles.saveButtonText}>Save Changes</Text>
-                </TouchableOpacity>
+                <View style={styles.buttonsContainer}>
+                  <TouchableOpacity
+                    onPress={handleSaveChanges}
+                    style={[styles.saveButton, styles.saveButtonMargin]}
+                  >
+                    <Text style={styles.saveButtonText}>Save Changes</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => setEditMode(false)}
+                    style={styles.saveButton}
+                  >
+                    <Text style={styles.saveButtonText}>Cancel</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             )}
             {!editMode && (
@@ -254,6 +262,7 @@ const styles = StyleSheet.create({
   },
   recommendationText: {
     fontSize: 12,
+    color: "#fff",
   },
   editIconContainer: {
     position: "absolute",
@@ -285,6 +294,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "normal",
   },
+  buttonsContainer: {
+    flexDirection: "row",
+  },
   saveButton: {
     backgroundColor: "#A7BEE1",
     paddingVertical: 5,
@@ -292,6 +304,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 5,
     marginBottom: 10,
+    marginLeft: 5,
+  },
+  saveButtonMargin: {
+    marginRight: 5,
   },
   saveButtonText: {
     color: "white",

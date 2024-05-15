@@ -40,6 +40,16 @@ const Informations = () => {
         screenName="Workexperience"
       />
       <InfoBlock
+        icon={<Ionicons name="school-outline" size={24} color="grey" />}
+        text="Academic Background"
+        screenName="AcademicBackground"
+      />
+      <InfoBlock
+        icon={<Ionicons name="construct-outline" size={24} color="grey" />}
+        text="Projects"
+        screenName="Projects"
+      />
+      <InfoBlock
         icon={
           <MaterialCommunityIcons
             name="certificate-outline"
@@ -50,30 +60,16 @@ const Informations = () => {
         text="Certifications"
         screenName="Certifications"
       />
-      <InfoBlock
-        icon={<Ionicons name="construct-outline" size={24} color="grey" />}
-        text="Projects"
-        screenName="Projects"
-      />
+
       <InfoBlock
         icon={<Ionicons name="language-outline" size={24} color="grey" />}
         text="Languages"
         screenName="Languages"
       />
       <InfoBlock
-        icon={<Ionicons name="school-outline" size={24} color="grey" />}
-        text="Academic Background"
-        screenName="AcademicBackground"
-      />
-      <InfoBlock
         icon={<Ionicons name="ios-heart-outline" size={24} color="grey" />}
         text="Interests"
         screenName="Interests"
-      />
-      <InfoBlock
-        icon={<Ionicons name="document-outline" size={24} color="grey" />}
-        text="Resume"
-        screenName="Resume"
       />
     </ScrollView>
   );

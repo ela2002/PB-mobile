@@ -12,7 +12,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import {
   doc,
-  getDoc,
+  getDocs,
   collection,
   addDoc,
   updateDoc,

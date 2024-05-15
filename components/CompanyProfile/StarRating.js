@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { FontAwesome } from "@expo/vector-icons"; // Assuming you are using Expo
+import { FontAwesome } from "@expo/vector-icons"; 
 
 const StarRating = ({ rating }) => {
   const stars = Array.from({ length: 5 }, (_, index) => (

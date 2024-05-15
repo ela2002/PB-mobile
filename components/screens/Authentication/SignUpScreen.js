@@ -43,13 +43,13 @@ const SignUpScreen = ({ navigation }) => {
         uid: auth.currentUser.uid,
         email,
         fullName,
-        Unrecommend: "",
+        Unrecommend: 0,
         bio: "",
         companyName: "",
         industry: "",
         jobTitle: "",
         profilePicture: "",
-        recommend: "",
+        recommend: 0,
         role: "employee",
       });
 

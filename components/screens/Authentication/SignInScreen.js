@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   forgotPassword: {
-    marginLeft: 100,
+    marginLeft: 65,
     marginTop: 5,
     marginBottom: 5,
     fontSize: 15,

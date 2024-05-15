@@ -81,10 +81,10 @@ const Details = () => {
   const handleEditField = (fieldName) => {
     setEditingField(fieldName);
   };
-  const navigation = useNavigation(); // Initialize navigation
+  const navigation = useNavigation(); 
 
   const handleNavigateToInformation = () => {
-    navigation.navigate("Informations"); // Navigate to the Information component
+    navigation.navigate("Informations"); 
   };
 
   const handleLogout = () => {
@@ -92,7 +92,7 @@ const Details = () => {
       .signOut()
       .then(() => {
         console.log("User logged out successfully.");
-        navigation.navigate("SignIn"); // Navigate to the sign-in page
+        navigation.navigate("SignIn"); 
       })
       .catch((error) => {
         console.error("Error logging out:", error);
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
       height: 2,
     },
     elevation: 2,
-    overflow: "hidden", // Hide overflow content
+    overflow: "hidden", 
   },
   scrollViewContent: {
     flexGrow: 1,

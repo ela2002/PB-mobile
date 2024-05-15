@@ -33,19 +33,6 @@ const ParticipantNavBar = ({ activeTab, setActiveTab }) => {
           Posts
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.navItem, activeTab === "saves" && styles.activeNavItem]}
-        onPress={() => setActiveTab("saves")}
-      >
-        <Text
-          style={[
-            styles.navText,
-            activeTab === "saves" && styles.activeNavText,
-          ]}
-        >
-          Saves
-        </Text>
-      </TouchableOpacity>
     </View>
   );
 };

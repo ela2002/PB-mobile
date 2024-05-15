@@ -187,7 +187,13 @@ const SearchScreen = () => {
   const handleFilterChange = (filterName, value) => {
     setFilters({ ...filters, [filterName]: value });
   };
-
+  const handleReset = () => {
+    setSearchText("");
+    setFilters({});
+    // Refetch jobs and companies
+    fetchJobs();
+    fetchCompanies();
+  };
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
@@ -228,7 +234,13 @@ const SearchScreen = () => {
                 style={styles.applyFiltersButton}
                 onPress={handleApplyFilters}
               >
-                <Text style={styles.applyFiltersButtonText}>Filters</Text>
+                <Text style={styles.applyFiltersButtonText}>Filter</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.applyFiltersButton}
+                onPress={handleReset}
+              >
+                <Text style={styles.applyFiltersButtonText}>Reset</Text>
               </TouchableOpacity>
             </>
           )}
@@ -254,7 +266,13 @@ const SearchScreen = () => {
                 style={styles.applyFiltersButton}
                 onPress={handleApplyCompanyFilters}
               >
-                <Text style={styles.applyFiltersButtonText}>Apply Filters</Text>
+                <Text style={styles.applyFiltersButtonText}>Filter</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.applyFiltersButton}
+                onPress={handleReset}
+              >
+                <Text style={styles.applyFiltersButtonText}>Reset</Text>
               </TouchableOpacity>
             </>
           )}

@@ -16,7 +16,7 @@ const Overview = ({ company }) => {
         <Text style={styles.sectionTitle}>Website</Text>
         <Text style={styles.sectionContent}>{company.website}</Text>
       </View>
-      {/* Add more sections for additional overview details */}
+      
     </View>
   );
 };

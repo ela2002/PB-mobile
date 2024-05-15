@@ -6,7 +6,7 @@ const BottomProfile = ({ setActiveTab }) => {
 
   const handleTabPress = (tab) => {
     setActiveTab(tab);
-    setActiveTabLocal(tab); // Update local state to reflect the active tab
+    setActiveTabLocal(tab);
   };
 
   return (
@@ -22,6 +22,18 @@ const BottomProfile = ({ setActiveTab }) => {
         onPress={() => handleTabPress("Userpost")}
       >
         <Text style={styles.tabText}>Posts</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tab, activeTab === "liked" && styles.activeTab]}
+        onPress={() => handleTabPress("liked")}
+      >
+        <Text style={styles.tabText}>Likes</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tab, activeTab === "saved" && styles.activeTab]}
+        onPress={() => handleTabPress("saved")}
+      >
+        <Text style={styles.tabText}>Saves</Text>
       </TouchableOpacity>
     </View>
   );

@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView, StyleSheet, Text } from "react-native";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { auth, firestore } from "../../firebase/firebase";
 import PostCard from "../Insightzone/PostCard";
@@ -79,7 +85,7 @@ const Userpost = () => {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <Text>Loading...</Text>
+        <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
   }

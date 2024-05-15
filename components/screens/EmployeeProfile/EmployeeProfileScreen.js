@@ -1,21 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, SafeAreaView } from "react-native"; // Import SafeAreaView
+import React, { useState } from "react";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import ProfileHeader from "../../EmployeeProfile/ProfileHeader";
 import BottomProfile from "../../EmployeeProfile/BottomProfile";
-import Details from "../../EmployeeProfile/Details"; // Import the Details component
-import Userpost from "../../EmployeeProfile/Userpost"; // Import the Userpost component
-import { auth, firestore } from "../../../firebase/firebase"; // Import the auth and firestore objects
+import Details from "../../EmployeeProfile/Details";
+import Userpost from "../../EmployeeProfile/Userpost";
+import Liked from "../../EmployeeProfile/Liked";
+import Saved from "../../EmployeeProfile/Saved";
 
 const EmployeeProfileScreen = () => {
   const [activeTab, setActiveTab] = useState("Details");
+
+  let activeComponent;
+
+  switch (activeTab) {
+    case "Details":
+      activeComponent = <Details />;
+      break;
+    case "Userpost":
+      activeComponent = <Userpost />;
+      break;
+    case "liked":
+      activeComponent = <Liked />;
+      break;
+    case "saved":
+      activeComponent = <Saved />;
+      break;
+    default:
+      activeComponent = null;
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <ProfileHeader />
         <BottomProfile setActiveTab={setActiveTab} />
-        {(activeTab === "Details" && <Details />) ||
-          (activeTab === "Userpost" && <Userpost />)}
+        {activeComponent}
       </View>
     </SafeAreaView>
   );

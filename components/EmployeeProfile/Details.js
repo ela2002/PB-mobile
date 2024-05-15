@@ -92,7 +92,7 @@ const Details = () => {
       .signOut()
       .then(() => {
         console.log("User logged out successfully.");
-        navigation.navigate("SignIn"); // Navigate to the sign-in page
+        navigation.navigate("SignIn");
       })
       .catch((error) => {
         console.error("Error logging out:", error);
