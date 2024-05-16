@@ -12,7 +12,6 @@ Powerback Mobile is a mobile application built with React Native that provides e
 - **Review Submission**: Employees can submit detailed reviews about their employers.
 - **Search and Filtering**: Advanced search functionality to find companies based on various criteria.
 - **User Profiles**: Personalized user profiles with options to follow companies and colleagues.
-- **Notification System**: Real-time notifications for new reviews, comments, and updates.
 - **Analytics Dashboard**: Powerful analytics and reporting tools for companies to track review trends.
 - **Cross-Platform Compatibility**: Support for both iOS and Android platforms.
 - **Real-Time Chat**: Integrated chat feature for users to communicate in real-time with colleagues.
