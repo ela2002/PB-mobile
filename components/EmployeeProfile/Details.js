@@ -92,12 +92,16 @@ const Details = () => {
       .signOut()
       .then(() => {
         console.log("User logged out successfully.");
-        navigation.navigate("SignIn");
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Auth" }],
+        });
       })
       .catch((error) => {
         console.error("Error logging out:", error);
       });
   };
+
   return (
     <View style={styles.container}>
       {loading ? (
@@ -240,17 +244,6 @@ const Details = () => {
                 />
               </View>
             </View>
-            <View style={[styles.inputContainer, styles.lastInputContainer]}>
-              <View style={styles.inputBox}>
-                <Ionicons
-                  name="information"
-                  size={19}
-                  color="grey"
-                  style={styles.icon}
-                />
-                <Text style={styles.input}>More Informations..</Text>
-              </View>
-            </View>
           </View>
         </ScrollView>
       )}
@@ -280,6 +273,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flexGrow: 1,
+    marginBottom: 50,
   },
   inputContainer: {
     marginBottom: 20,

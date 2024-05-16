@@ -14,14 +14,16 @@ import ForgotPasswordScreen from "./ForgotPasswordScreen";
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const [showForgotPassword, setShowForgotPassword] = useState(false); // State to control whether to show the ForgotPasswordScreen
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const handleSignIn = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("User signed in successfully!");
-      navigation.navigate("Main");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Main" }],
+      });
     } catch (error) {
       Alert.alert("Sign-in Error", error.message);
       console.error("Sign-in error:", error.message);
@@ -40,7 +42,10 @@ const SignInScreen = ({ navigation }) => {
     <View style={styles.container}>
       {!showForgotPassword ? (
         <View style={styles.card}>
-          <Text style={styles.title}>Sign In</Text>
+          <Text style={styles.title}>Welcome Back!</Text>
+          <Text style={styles.title2}>
+            Let’s make workplaces better together.
+          </Text>
           <TextInput
             style={styles.input}
             placeholder="Email"
@@ -85,17 +90,25 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 10,
-    marginLeft: 70,
-    fontSize: 32,
+    marginLeft: 45,
+    fontSize: 25,
     fontWeight: "bold",
     color: "#8172E8",
-    marginBottom: 30,
+    marginBottom: 10,
+  },
+  title2: {
+    marginTop: 10,
+    marginLeft: 30,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#A7BEE1",
+    marginBottom: 20,
   },
   card: {
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     width: 300,
-    height: 360,
+    height: 400,
     padding: 20,
     shadowColor: "#000000",
     shadowOffset: {

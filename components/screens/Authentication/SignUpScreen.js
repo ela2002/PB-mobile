@@ -68,7 +68,8 @@ const SignUpScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Text style={styles.title}>Sign Up</Text>
+        <Text style={styles.title}>Join Powerback Today!</Text>
+        <Text style={styles.title2}>Share your story. Shape the future.</Text>
         <TextInput
           style={styles.input}
           placeholder="fullName"
@@ -119,11 +120,19 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 10,
-    marginLeft: 70,
-    fontSize: 32,
+    marginLeft: 10,
+    fontSize: 23,
     fontWeight: "bold",
     color: "#8172E8", // Purple color
-    marginBottom: 30,
+    marginBottom: 10,
+  },
+  title2: {
+    marginTop: 10,
+    marginLeft: 10,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#A7BEE1",
+    marginBottom: 20,
   },
   card: {
     backgroundColor: "#FFFFFF",

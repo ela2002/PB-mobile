@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const WelcomeScreen = ({ navigation }) => {
   const handleSignIn = () => {
@@ -11,7 +12,7 @@ const WelcomeScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={["#A7BEE1", "#8172E8"]} style={styles.container}>
       <View style={styles.contentContainer}>
         <Text style={styles.title}>
           Shaping Better Workplaces, {"\n"}One Review at a Time
@@ -22,60 +23,66 @@ const WelcomeScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.button} onPress={handleSignIn}>
           <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
+          <Text style={styles.signUpButtonText}>Sign Up</Text>
+        </TouchableOpacity>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f0f0f0",
-  },
-  contentContainer: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  image: {
-    width: 310,
-    height: 250,
-    marginBottom: 20,
+  contentContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
   },
   title: {
-    fontSize: 27,
+    fontSize: 32,
     fontWeight: "bold",
     marginBottom: 20,
-    color: "#8172E8", // Title text color
+    color: "#FFFFFF",
     textAlign: "center",
+    textShadowColor: "rgba(0, 0, 0, 0.2)",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
   },
   caption: {
-    fontSize: 16,
-    marginBottom: 30,
-    color: "#333",
+    fontSize: 18,
+    marginBottom: 40,
+    color: "#E0E0E0",
     textAlign: "center",
-    lineHeight: 24,
+    lineHeight: 26,
   },
   button: {
-    backgroundColor: "#8172E8",
+    backgroundColor: "#FFFFFF",
     paddingVertical: 15,
-    paddingHorizontal: 40,
+    paddingHorizontal: 50,
     borderRadius: 30,
-    marginBottom: 10,
-    marginTop: 5,
+    marginBottom: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   buttonText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: "#8172E8",
   },
   signUpButton: {
     backgroundColor: "transparent",
     borderWidth: 2,
     borderColor: "#FFFFFF",
     paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 10,
+    paddingHorizontal: 50,
+    borderRadius: 30,
   },
   signUpButtonText: {
     fontSize: 18,

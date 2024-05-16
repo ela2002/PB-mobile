@@ -33,6 +33,7 @@ import { auth } from "../firebase/firebase";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
 const MainNavigator = () => {
   return (
     <Tab.Navigator tabBar={(props) => <Tabs {...props} />}>
@@ -66,15 +67,51 @@ const MainNavigator = () => {
         component={EmployeeProfileScreen}
         options={{ headerShown: false }}
       />
-      <Tab.Screen name="participantdetail" component={ParticipantDetail} />
-      <Tab.Screen name="Informations" component={Informations} />
-      <Tab.Screen name="Projects" component={Projects} />
-      <Tab.Screen name="Resume" component={Resume} />
-      <Tab.Screen name="Workexperience" component={Workexperience} />
-      <Tab.Screen name="Interests" component={Interests} />
-      <Tab.Screen name="AcademicBackground" component={AcademicBackground} />
-      <Tab.Screen name="Languages" component={Languages} />
-      <Tab.Screen name="Certifications" component={Certifications} />
+      <Tab.Screen
+        name="participantdetail"
+        component={ParticipantDetail}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Informations"
+        component={Informations}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Projects"
+        component={Projects}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Resume"
+        component={Resume}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Workexperience"
+        component={Workexperience}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Interests"
+        component={Interests}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="AcademicBackground"
+        component={AcademicBackground}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Languages"
+        component={Languages}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Certifications"
+        component={Certifications}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 };
@@ -123,16 +160,36 @@ const AppNavigator = () => {
         <Stack.Screen
           name="Main"
           component={MainNavigator}
-          options={({ navigation }) => ({
+          options={{
             headerShown: false,
-            gestureEnabled: false,
-          })}
+            gestureEnabled: false, // Disable gestures to prevent back navigation
+          }}
         />
-        <Stack.Screen name="ChatListScreen" component={ChatListScreen} />
-        <Stack.Screen name="ChatDetailScreen" component={ChatDetailScreen} />
-        <Stack.Screen name="Search" component={SearchScreen} />
-        <Stack.Screen name="CompanyDetail" component={CompanyDetail} />
-        <Stack.Screen name="JobDetail" component={JobDetail} />
+        <Stack.Screen
+          name="ChatListScreen"
+          component={ChatListScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ChatDetailScreen"
+          component={ChatDetailScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CompanyDetail"
+          component={CompanyDetail}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="JobDetail"
+          component={JobDetail}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
