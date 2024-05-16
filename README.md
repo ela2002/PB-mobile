@@ -20,7 +20,7 @@ Powerback Mobile is a mobile application built with React Native that provides e
 
 ## Installation
 
-1. Clone the repository:
+1. Clone the repository: https://github.com/ela2002/PB-mobile.git
 2. Install dependencies: npm install
 3. Start the development server: npm start
 4. Follow the instructions in the terminal to launch the application on an iOS or Android emulator, or scan the QR code with the Expo Go app on your mobile device.
